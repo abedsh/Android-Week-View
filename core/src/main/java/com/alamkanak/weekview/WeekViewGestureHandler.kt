@@ -161,7 +161,7 @@ internal class WeekViewGestureHandler<T : Any>(
         }
 
         val isHorizontalAndDisabled =
-            currentFlingDirection.isHorizontal && !config.horizontalFlingEnabled
+                currentScrollDirection.isHorizontal && !config.horizontalFlingEnabled
 
         val isVerticalAndDisabled = currentFlingDirection.isVertical && !config.verticalFlingEnabled
 
