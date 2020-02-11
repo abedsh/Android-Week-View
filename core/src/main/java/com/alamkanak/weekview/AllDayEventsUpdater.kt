@@ -15,8 +15,8 @@ internal class AllDayEventsUpdater<T : Any>(
     private val view: WeekView<T>,
     private val config: WeekViewConfigWrapper,
     private val cache: WeekViewCache<T>,
-    private val chipCache: EventChipCache<T>,
-    private val emojiTextProcessor: EmojiTextProcessor = EmojiTextProcessor()
+    private val chipCache: EventChipCache<T>
+    //private val emojiTextProcessor: EmojiTextProcessor = EmojiTextProcessor()
 ) : Updater {
 
     private val context = view.context
@@ -102,8 +102,7 @@ internal class AllDayEventsUpdater<T : Any>(
             null -> ""
         }
 
-        val modifiedTitle = emojiTextProcessor.process(title)
-        val text = SpannableStringBuilder(modifiedTitle)
+        val text = SpannableStringBuilder(title)
         text.setSpan(StyleSpan(Typeface.BOLD))
 
         val location = when (val resource = event.locationResource) {
@@ -113,8 +112,7 @@ internal class AllDayEventsUpdater<T : Any>(
         }
 
         if (location != null) {
-            val modifiedLocation = emojiTextProcessor.process(location)
-            text.append(' ').append(modifiedLocation)
+            text.append(' ').append(location)
         }
 
         val availableWidth = width.toInt()

@@ -1,13 +1,10 @@
 package com.alamkanak.weekview
 
 import android.content.Context
-import androidx.emoji.bundled.BundledEmojiCompatConfig
-import androidx.emoji.text.EmojiCompat
 import androidx.test.platform.app.InstrumentationRegistry
 import com.alamkanak.weekview.model.Event
 import com.alamkanak.weekview.util.createDate
 import com.google.common.truth.Truth.assertThat
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
@@ -24,10 +21,10 @@ class EventsLoadersTest {
     private val context: Context
         get() = InstrumentationRegistry.getInstrumentation().targetContext
 
-    @Before
-    fun setup() {
-        EmojiCompat.init(BundledEmojiCompatConfig(context))
-    }
+//    @Before
+//    fun setup() {
+//        EmojiCompat.init(BundledEmojiCompatConfig(context))
+//    }
 
     @Test
     fun `CachingEventsLoader is called correctly`() = weekViewRobot(context) {

@@ -23,7 +23,7 @@ dependencies {
 
     implementation libraries.kotlin
     implementation libraries.appCompat
-    implementation libraries.emoji
+    //implementation libraries.emoji
     implementation libraries.threeTenAbp
 
     implementation 'com.google.android.material:material:1.1.0-beta01'

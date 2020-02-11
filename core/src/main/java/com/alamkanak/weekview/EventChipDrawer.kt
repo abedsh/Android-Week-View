@@ -14,8 +14,8 @@ import com.alamkanak.weekview.WeekViewEvent.TextResource
 
 internal class EventChipDrawer<T>(
     private val context: Context,
-    private val config: WeekViewConfigWrapper,
-    private val emojiTextProcessor: EmojiTextProcessor = EmojiTextProcessor()
+    private val config: WeekViewConfigWrapper
+    //private val emojiTextProcessor: EmojiTextProcessor = EmojiTextProcessor()
 ) {
 
     private val textFitter = TextFitter<T>(context, config)
@@ -165,13 +165,11 @@ internal class EventChipDrawer<T>(
             null -> null
         }
 
-        val modifiedTitle = emojiTextProcessor.process(title)
-        val text = SpannableStringBuilder(modifiedTitle)
+        val text = SpannableStringBuilder(title)
         text.setSpan(StyleSpan(Typeface.BOLD))
 
-        val modifiedLocation = location?.let { emojiTextProcessor.process(it) }
-        if (modifiedLocation != null) {
-            text.appendln().append(modifiedLocation)
+        location?.let {
+            text.appendln().append(it)
         }
 
         val chipHeight = (rect.bottom - rect.top - fullVerticalPadding).toInt()
@@ -186,13 +184,7 @@ internal class EventChipDrawer<T>(
         val isCached = textLayoutCache.containsKey(event.id)
 
         if (didAvailableAreaChange || !isCached) {
-            textLayoutCache[event.id] = textFitter.fit(
-                eventChip = eventChip,
-                title = modifiedTitle,
-                location = modifiedLocation,
-                chipHeight = chipHeight,
-                chipWidth = chipWidth
-            )
+            textLayoutCache[event.id] = textFitter.fit(eventChip, title, location, chipHeight, chipWidth)
             eventChip.updateAvailableArea(chipWidth, chipHeight)
         }
 
