@@ -106,6 +106,29 @@ class WeekView<T : Any> @JvmOverloads constructor(
         drawingContext.update()
     }
 
+    fun willOverlap(selectedDate: Calendar, startDate: Calendar, endDate: Calendar): Boolean {
+        val list = eventChipCache.groupedByDate().get(selectedDate)
+
+        list?.forEach {
+            if (it.event.id!=0L && overlaps(startDate, endDate, it.event.startTime, it.event.endTime)) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    private fun overlaps(selectedStartDate: Calendar, selectedEndDate: Calendar, startDate: Calendar, endDate: Calendar): Boolean {
+        selectedStartDate.set(Calendar.MILLISECOND,0)
+        selectedEndDate.set(Calendar.MILLISECOND,0)
+        startDate.set(Calendar.MILLISECOND,0)
+        endDate.set(Calendar.MILLISECOND,0)
+
+        return (selectedStartDate.after(startDate) && selectedStartDate.before(endDate)) || (selectedEndDate.after(startDate) && selectedEndDate.before(endDate))
+                || selectedStartDate.compareTo(startDate) == 0 || selectedEndDate.compareTo(endDate) == 0 || (selectedStartDate.before(startDate) && selectedEndDate.after(endDate))
+
+    }
+
     private fun refreshEvents() {
         if (isInEditMode) {
             return
