@@ -11,8 +11,8 @@ internal class EventChipCache<T> {
     private val normalEventChipsByDate = ConcurrentHashMap<Long, MutableList<EventChip<T>>>()
     private val allDayEventChipsByDate = ConcurrentHashMap<Long, MutableList<EventChip<T>>>()
 
-    fun groupedByDate(): Map<Calendar, List<EventChip<T>>> {
-        return allEventChips.groupBy { it.event.startTime.atStartOfDay }
+    fun groupedByDate(): Map<Long, List<EventChip<T>>> {
+        return allEventChips.groupBy { it.event.startTime.atStartOfDay.timeInMillis }
     }
 
     fun allEventChipsInDateRange(

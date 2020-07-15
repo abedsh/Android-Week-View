@@ -107,7 +107,7 @@ class WeekView<T : Any> @JvmOverloads constructor(
     }
 
     fun willOverlap(selectedDate: Calendar, startDate: Calendar, endDate: Calendar): Boolean {
-        val list = eventChipCache.groupedByDate().get(selectedDate)
+        val list = eventChipCache.groupedByDate().get(selectedDate.timeInMillis)
 
         if (startDate.before(now())) {
             return true
